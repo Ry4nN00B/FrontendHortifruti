@@ -1,0 +1,93 @@
+<div class="page-container">
+  <h1 class="page-title">Visão Geral</h1>
+
+  <!-- 1. Cards Superiores (KPIs) -->
+  <section class="stats-grid kpi-grid">
+    <div class="stat-card">
+      <div class="stat-icon"><i class="icon"></i></div>
+      <div class="stat-info">
+        <span class="stat-value">{{ totalVendas }}</span>
+        <span class="stat-label">Vendas</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="icon"></i></div>
+      <div class="stat-info">
+        <span class="stat-value">R$ {{ faturamentoBruto | number:'1.2-2' }}</span>
+        <span class="stat-label">Receita</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="icon"></i></div>
+      <div class="stat-info">
+        <span class="stat-value">R$ {{ aReceber | number:'1.2-2' }}</span>
+        <span class="stat-label">A Receber</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="icon"></i></div>
+      <div class="stat-info">
+        <span class="stat-value">{{ quantidadeEmEstoque }}</span>
+        <span class="stat-label">Em Estoque</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Gráficos (Mockup) -->
+  <section class="stats-grid charts-grid">
+    <div class="chart-card large-card">
+      <h2 class="card-title">Vendas & Compras (Últimos 6 meses)</h2>
+      <div class="chart-placeholder">
+        [Gráfico de Barras]
+      </div>
+    </div>
+    <div class="chart-card">
+      <h2 class="card-title">Resumo de Pedidos</h2>
+      <div class="chart-placeholder">
+        [Gráfico de Linha]
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Tabelas (Mais Vendidos / Estoque Baixo) -->
+  <section class="stats-grid tables-grid">
+    <div class="card-table-container large-card">
+      <h2 class="card-title-table">Produtos Mais Vendidos</h2>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Qtd. Vendida</th>
+              <th>Qtd. Restante</th>
+              <th>Preço</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let produto of produtosMaisVendidos">
+              <td>{{ produto.nome }}</td>
+              <td>{{ produto.vendida }}</td>
+              <td>{{ produto.restante }}</td>
+              <td>R$ {{ produto.preco | number:'1.2-2' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card-table-container">
+      <h2 class="card-title-table">Estoque Baixo</h2>
+      <div class="list-wrapper">
+        <ul class="product-list">
+          <li *ngFor="let item of produtosComEstoqueBaixo" class="product-item">
+            <div class="product-info">
+              <span class="product-name">{{ item.nome }}</span>
+              <span class="product-stock">Restante: {{ item.quantidade }}</span>
+            </div>
+            <span class="status-tag status-tag-warning">Baixo</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>

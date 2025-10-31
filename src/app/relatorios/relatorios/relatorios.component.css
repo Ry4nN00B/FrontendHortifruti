@@ -1,0 +1,104 @@
+:host { display: block; }
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/* --- GRID OVERVIEW (Cards Superiores) --- */
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.overview-card {
+  background-color: var(--color-card-bg);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+.overview-label {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.overview-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* --- GRID DE CONTEÚDO (Gráfico e Lista) --- */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+@media (min-width: 992px) {
+  .content-grid { grid-template-columns: 2fr 1fr; }
+}
+
+/* Card do Gráfico */
+.chart-card-container {
+  background-color: var(--color-card-bg);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+}
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 1.5rem;
+}
+.chart-placeholder {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  border-radius: var(--border-radius);
+  color: var(--color-text-secondary);
+}
+
+/* Card das Categorias */
+.best-selling-container {
+  background-color: var(--color-card-bg);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+}
+.selling-list { list-style: none; margin: 0; padding: 0; }
+.selling-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #f1f3f5;
+}
+.selling-item:last-child { border-bottom: none; }
+.selling-item.header {
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+.selling-item .turnover { font-weight: 500; }
+
+/* Tabela Inferior */
+.card-title-table {
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 1.5rem;
+  margin: 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.table-wrapper { overflow-x: auto; }
+

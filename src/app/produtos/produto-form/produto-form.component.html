@@ -1,0 +1,68 @@
+<div class="modal-backdrop" (click)="closeModal.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <!-- Cabeçalho do Modal -->
+    <div class="modal-header">
+      <h2 class="modal-title">Novo Produto</h2>
+      <button class="btn-close" (click)="closeModal.emit()">&times;</button>
+    </div>
+
+    <!-- Corpo do Modal (Formulário) -->
+    <form class="modal-body" (ngSubmit)="saveProduct()">
+      <div class="form-scroll-area">
+        <!-- Campos do Formulário (baseado em 'novo produto.png') -->
+        <div class="form-group">
+          <label for="productName" class="form-label">Nome do Produto</label>
+          <input type="text" id="productName" class="form-control" placeholder="Digite o nome do produto" [(ngModel)]="product.name" name="productName" required />
+        </div>
+
+        <div class="form-group">
+          <label for="productId" class="form-label">ID do Produto (SKU)</label>
+          <input type="text" id="productId" class="form-control" placeholder="Digite o ID do produto" [(ngModel)]="product.id" name="productId" required />
+        </div>
+
+        <div class="form-group">
+          <label for="category" class="form-label">Categoria</label>
+          <select id="category" class="form-control" [(ngModel)]="product.category" name="category" required>
+            <option value="" disabled selected>Selecione a categoria</option>
+            <option value="Frutas">Frutas</option>
+            <option value="Vegetais">Vegetais</option>
+            <option value="Mercearia">Mercearia</option>
+          </select>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="buyingPrice" class="form-label">Preço de Compra</label>
+            <input type="number" id="buyingPrice" class="form-control" placeholder="R$ 0,00" [(ngModel)]="product.price" name="buyingPrice" />
+          </div>
+           <div class="form-group">
+            <label for="quantity" class="form-label">Quantidade</label>
+            <input type="number" id="quantity" class="form-control" placeholder="0" [(ngModel)]="product.quantity" name="quantity" required />
+          </div>
+        </div>
+
+        <div class="form-grid">
+           <div class="form-group">
+            <label for="threshold" class="form-label">Estoque Mínimo</label>
+            <input type="number" id="threshold" class="form-control" placeholder="0" [(ngModel)]="product.qtoMinima" name="threshold" required/>
+          </div>
+          <div class="form-group">
+            <label for="expiryDate" class="form-label">Data de Expiração</label>
+            <input type="date" id="expiryDate" class="form-control" [(ngModel)]="product.validity" name="expiryDate" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Rodapé do Modal (Ações) -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal.emit()">
+          Descartar
+        </button>
+        <button type="submit" class="btn btn-primary">
+          Adicionar Produto
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+

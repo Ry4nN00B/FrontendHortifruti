@@ -1,0 +1,73 @@
+<div class="main-layout">
+  <!-- BARRA LATERAL (Sidebar) -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-icon">H</div>
+      <h1 class="logo-text">HORTIFRUTI</h1>
+    </div>
+
+    <nav class="main-nav">
+      <span class="nav-section-title">NAVEGAÇÃO PRINCIPAL</span>
+      <ul>
+        <li>
+          <a routerLink="/dashboard" routerLinkActive="active">
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/inventario" routerLinkActive="active">
+            <span>Inventário</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/relatorios" routerLinkActive="active">
+            <span>Relatórios</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/fornecedores" routerLinkActive="active">
+            <span>Fornecedores</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <nav class="main-nav">
+        <span class="nav-section-title">CONFIGURAÇÕES</span>
+        <ul>
+          <li>
+            <a routerLink="/configuracao" routerLinkActive="active">
+              <span>Configuração</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="logout()" class="logout-link">
+              <span>Log Out</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- CONTEÚDO PRINCIPAL (Main Content) -->
+  <main class="content-area">
+    <!-- BARRA SUPERIOR (Topbar) -->
+    <header class="topbar">
+      <div class="search-bar">
+        <input type="text" placeholder="Buscar produto, fornecedor..." />
+      </div>
+      <div class="user-profile">
+        <div class="user-avatar">
+          <span>U</span> <!-- Inicial do usuário -->
+        </div>
+      </div>
+    </header>
+
+    <!-- O <router-outlet> é onde o Angular carrega as páginas (Dashboard, etc.) -->
+    <div class="page-content">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

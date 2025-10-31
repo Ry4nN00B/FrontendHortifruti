@@ -1,0 +1,111 @@
+:host { display: block; }
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+.stats-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* --- Cards Superiores (KPIs) --- */
+.kpi-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.stat-card {
+  background-color: var(--color-card-bg);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: var(--color-primary-light); /* Fundo verde claro */
+  color: var(--color-primary-dark); /* Ícone verde escuro */
+}
+.stat-icon .icon { /* Placeholder para ícone */
+  width: 24px;
+  height: 24px;
+  background-color: var(--color-primary-dark);
+}
+.stat-info { display: flex; flex-direction: column; }
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+/* --- Gráficos --- */
+@media (min-width: 992px) {
+  .charts-grid { grid-template-columns: 2fr 1fr; }
+}
+.chart-card {
+  background-color: var(--color-card-bg);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+.chart-placeholder {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  border-radius: var(--border-radius);
+  color: var(--color-text-secondary);
+}
+
+/* --- Tabelas --- */
+@media (min-width: 992px) {
+  .tables-grid { grid-template-columns: 2fr 1fr; }
+}
+.card-title-table {
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 1.5rem;
+  margin: 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.table-wrapper { overflow-x: auto; }
+
+/* Lista de Estoque Baixo */
+.list-wrapper { padding: 0.5rem; }
+.product-list { list-style: none; margin: 0; padding: 0; }
+.product-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+}
+.product-item:hover { background-color: #f8f9fa; }
+.product-info { flex: 1; display: flex; flex-direction: column; }
+.product-name { font-weight: 500; }
+.product-stock {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+.status-tag-warning { flex-shrink: 0; }

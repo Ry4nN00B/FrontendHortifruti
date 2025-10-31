@@ -1,0 +1,85 @@
+<div class="page-container">
+  <h1 class="page-title">Relatórios</h1>
+
+  <!-- 1. Overview (Cards Superiores) -->
+  <section class="overview-grid">
+    <div class="overview-card">
+      <span class="overview-label">Lucro Total</span>
+      <span class="overview-value">R$ {{ lucroTotal | number:'1.2-2' }}</span>
+    </div>
+    <div class="overview-card">
+      <span class="overview-label">Receita Total</span>
+      <span class="overview-value">R$ {{ faturamentoTotal | number:'1.2-2' }}</span>
+    </div>
+    <div class="overview-card">
+      <span class="overview-label">Vendas (Mês)</span>
+      <span class="overview-value">{{ vendasMes }}</span>
+    </div>
+    <div class="overview-card">
+      <span class="overview-label">Outro Dado (Mock)</span>
+      <span class="overview-value">1.200</span>
+    </div>
+  </section>
+
+  <!-- 2. Gráfico e Categorias -->
+  <section class="content-grid">
+    <div class="chart-card-container">
+      <h2 class="card-title">Lucro & Receita</h2>
+      <div class="chart-placeholder">
+        [Gráfico de Linha]
+      </div>
+    </div>
+
+    <div class="best-selling-container">
+      <h2 class="card-title">Categorias Mais Vendidas</h2>
+      <ul class="selling-list">
+        <!-- Cabeçalho da lista -->
+        <li class="selling-item header">
+          <span>Categoria</span>
+          <span class="turnover">Faturamento</span>
+        </li>
+        <!-- Dados (Mock) -->
+        <li class="selling-item data-row">
+          <span>Vegetais</span>
+          <span class="turnover">R$ 26,000</span>
+        </li>
+        <li class="selling-item data-row">
+          <span>Frutas</span>
+          <span class="turnover">R$ 22,000</span>
+        </li>
+        <li class="selling-item data-row">
+          <span>Mercearia</span>
+          <span class="turnover">R$ 18,000</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3. Tabela de Produtos Mais Vendidos -->
+  <section class="card-table-container">
+    <h2 class="card-title-table">Produtos Mais Vendidos</h2>
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>ID Produto</th>
+            <th>Categoria</th>
+            <th>Estoque</th>
+            <th>Faturamento</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- *ngFor="let product of bestSellingProducts" -> Loop nos dados do seu .ts -->
+          <tr *ngFor="let product of bestSellingProducts">
+            <td>{{ product.nome }}</td>
+            <td>{{ product.id }}</td>
+            <td>{{ product.categoria }}</td>
+            <td>{{ product.estoque }} Unid.</td>
+            <td>R$ {{ product.faturamento | number:'1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
