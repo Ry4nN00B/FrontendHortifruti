@@ -1,12 +1,12 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router'; // IMPORTAR
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [RouterModule], // ADICIONAR
   templateUrl: './app.component.html',
-  styleUrl: './app.css'
 })
-export class App {
-  protected readonly title = signal('hortifruti-frontend');
+export class AppComponent {
+  title = 'hortifruti-frontend';
 }

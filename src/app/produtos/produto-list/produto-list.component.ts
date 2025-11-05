@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../models/product.models';
-import { ProductService } from '../../services/product.service';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { Product } from '../../models/product.model';
+import { ProductService } from '../../api/product.service';
+import { ProdutoFormComponent } from '../produto-form/produto-form.component';
 
 @Component({
   selector: 'app-produto-list',
   templateUrl: './produto-list.component.html',
-  styleUrls: ['./produto-list.component.css']
+  styleUrls: ['./produto-list.component.css'],
+  standalone: true,
+  imports: [CommonModule, RouterModule, ProdutoFormComponent]
 })
 export class ProdutoListComponent implements OnInit {
-
+  // ... (código interno está ok, só adicionei os tipos) ...
   produtos: Product[] = [];
-  
-  // Variável para controlar o modal
   abrirModal: boolean = false;
 
   constructor(private productService: ProductService) { }
@@ -22,25 +25,18 @@ export class ProdutoListComponent implements OnInit {
 
   carregarProdutos(): void {
     this.productService.getProducts().subscribe(
-      (dadosRecebidos) => {
+      (dadosRecebidos: Product[]) => { 
         this.produtos = dadosRecebidos;
-        console.log('Produtos carregados (mock):', this.produtos);
       },
-      (erro) => {
+      (erro: any) => {
         console.error('Erro ao carregar produtos (mock)', erro);
       }
     );
   }
 
-  // --- MÉTODOS PARA CONTROLAR O MODAL ---
-
-  abrirModalAdicionarProduto(): void {
-    this.abrirModal = true;
-  }
-
+  abrirModalAdicionarProduto(): void { this.abrirModal = true; }
   fecharModalAdicionarProduto(): void {
     this.abrirModal = false;
-    // Opcional: Recarregar a lista de produtos após fechar
     this.carregarProdutos(); 
   }
 }

@@ -1,7 +1,6 @@
 <div class="page-container">
   <h1 class="page-title">Visão Geral</h1>
 
-  <!-- 1. Cards Superiores (KPIs) -->
   <section class="stats-grid kpi-grid">
     <div class="stat-card">
       <div class="stat-icon"><i class="icon"></i></div>
@@ -33,7 +32,7 @@
     </div>
   </section>
 
-  <!-- 2. Gráficos (Mockup) -->
+  <!-- Gráficos (Mockup) -->
   <section class="stats-grid charts-grid">
     <div class="chart-card large-card">
       <h2 class="card-title">Vendas & Compras (Últimos 6 meses)</h2>
@@ -81,8 +80,8 @@
         <ul class="product-list">
           <li *ngFor="let item of produtosComEstoqueBaixo" class="product-item">
             <div class="product-info">
-              <span class="product-name">{{ item.nome }}</span>
-              <span class="product-stock">Restante: {{ item.quantidade }}</span>
+              <span class="product-name">{{ item.name }}</span>
+              <span class="product-stock">Restante: {{ item.quantity }}</span>
             </div>
             <span class="status-tag status-tag-warning">Baixo</span>
           </li>

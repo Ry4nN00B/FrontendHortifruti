@@ -1,24 +1,28 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../../api/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../api/auth.service'; 
 
 @Component({
   selector: 'app-login',
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-
+export class LoginComponent implements OnInit { 
   email = '';
   password = '';
+  errorMessage = ''; 
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  ngOnInit(): void {}
+
   onLogin(): void {
-    // Chama o serviço Mock
-    this.authService.login(this.email, this.password).subscribe(success => {
+    this.authService.login(this.email, this.password).subscribe((success: any) => {
       if (success) {
-        // Se o login (falso) funcionar, vai para o dashboard
         this.router.navigate(['/dashboard']); 
       } else {
         this.errorMessage = 'Email ou senha inválidos (Mock)';

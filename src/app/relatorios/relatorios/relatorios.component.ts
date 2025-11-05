@@ -1,21 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ProductService } from '../../api/product.service';
 import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-relatorios',
   templateUrl: './relatorios.component.html',
-  styleUrls: ['./relatorios.component.css']
+  styleUrls: ['./relatorios.component.css'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class RelatoriosComponent implements OnInit {
 
-  faturamentoTotal = 18300; // Valor mockado para o HTML
-  lucroTotal = 21390; // Valor mockado
-  vendasMes = 17432; // Valor mockado
+  faturamentoTotal = 18300; 
+  lucroTotal = 21390; 
+  vendasMes = 17432; 
   
-  // Lista para os produtos mais vendidos
-  bestSellingProducts: Product[] = [];
-
+  bestSellingProducts: any[] = []; 
+  
   constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
@@ -23,10 +25,12 @@ export class RelatoriosComponent implements OnInit {
   }
 
   loadReports(): void {
-    // Pega os produtos do Mock e filtra os mais vendidos (ex: 3 primeiros)
-    this.productService.getProducts().subscribe(data => {
-      // Apenas pega os 3 primeiros como exemplo para a tabela
-      this.bestSellingProducts = data.slice(0, 3); 
+    this.productService.getProducts().subscribe((data: Product[]) => {
+      this.bestSellingProducts = data.map(product => ({
+        ...product,
+        // Mock de faturamento (preço * 10) pois o mock não tem "vendidos"
+        faturamento: product.price * 10 
+      })).slice(0, 3);
     });
   }
 }

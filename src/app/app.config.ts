@@ -3,7 +3,7 @@ import { provideRouter } from '@angular/router';
 
 // Importe suas rotas do arquivo de rotas
 
-import { routes } from './app-route.module'; 
+import { routes } from './app.routes'; 
 
 // Importe os módulos que precisamos
 import { HttpClientModule } from '@angular/common/http';

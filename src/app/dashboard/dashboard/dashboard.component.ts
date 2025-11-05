@@ -1,30 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../api/product.service'; // Puxa o serviço de produtos
-import { SupplierService } from '../../api/supplier.service'; // Puxa o serviço de fornecedores
+import { CommonModule } from '@angular/common'; 
+import { Observable, forkJoin } from 'rxjs';
+import { ProductService } from '../../api/product.service';
+import { SupplierService } from '../../api/supplier.service';
 import { Product } from '../../models/product.model';
 import { Supplier } from '../../models/supplier.model';
-import { Observable, forkJoin } from 'rxjs'; // Usado para carregar múltiplos dados
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class DashboardComponent implements OnInit {
-
-  // --- Variáveis para os cards de Resumo ---
-  totalVendas: number = 832; // (Mockado)
-  faturamentoBruto: number = 18300; // (Mockado)
   
+  totalVendas: number = 832;
+  faturamentoBruto: number = 18300;
   quantidadeEmEstoque: number = 0;
-  aReceber: number = 200; // (Mockado)
-  
+  aReceber: number = 200;
   totalFornecedores: number = 0;
-  totalCategorias: number = 0; // (Mockado)
-
-  // --- Variáveis para as Tabelas ---
-  produtosMaisVendidos: any[] = []; // (Mockado)
-  estoqueBaixo: Product[] = [];
+  totalCategorias: number = 0;
+  produtosMaisVendidos: any[] = [];
+  produtosComEstoqueBaixo: Product[] = []; 
 
   constructor(
     private productService: ProductService,
@@ -36,35 +34,27 @@ export class DashboardComponent implements OnInit {
   }
 
   carregarDadosDashboard() {
-    // Usamos forkJoin para carregar produtos E fornecedores ao mesmo tempo
     forkJoin({
       produtos: this.productService.getProducts(),
       fornecedores: this.supplierService.getSuppliers()
     }).subscribe({
-      next: (dados) => {
-        // --- Processa os dados dos Produtos (Inventário) ---
-        this.quantidadeEmEstoque = dados.produtos.reduce((acc, prod) => acc + prod.quantity, 0);
+      next: (dados: any) => { 
+        this.quantidadeEmEstoque = dados.produtos.reduce((acc: number, prod: any) => acc + prod.quantity, 0);
+    
+        this.produtosComEstoqueBaixo = dados.produtos.filter((prod: any) => prod.quantity < 15);
         
-        // Filtra produtos com estoque baixo (Ex: menos que 15)
-        this.estoqueBaixo = dados.produtos.filter(prod => prod.quantity < 15);
-
-        // --- Processa os dados dos Fornecedores ---
         this.totalFornecedores = dados.fornecedores.length;
         
-        // Mock de dados para o que não temos no mock
         this.produtosMaisVendidos = [
-          { nome: 'Banana Prata', vendida: 30, restante: 12, preco: 'R$ 4,50' },
-          { nome: 'Tomate Caqui', vendida: 21, restante: 15, preco: 'R$ 6,00' },
-          { nome: 'Laranja Pêra', vendida: 19, restante: 17, preco: 'R$ 3,90' },
+          { nome: 'Banana Prata', vendida: 30, restante: 12, preco: 'R$ 4,50', faturamento: (30 * 4.5) },
+          { nome: 'Tomate Caqui', vendida: 21, restante: 15, preco: 'R$ 6,00', faturamento: (21 * 6) },
+          { nome: 'Laranja Pêra', vendida: 19, restante: 17, preco: 'R$ 3,90', faturamento: (19 * 3.9) },
         ];
-        
-        this.totalCategorias = 5; // Valor mockado
+        this.totalCategorias = 5;
       },
-      error: (err) => {
+      error: (err: any) => { 
         console.error('Erro ao carregar dados do dashboard:', err);
       }
     });
   }
-
 }
-
