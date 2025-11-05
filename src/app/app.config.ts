@@ -1,12 +1,23 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
-import { routes } from './app-route.module';
+// Importe suas rotas do arquivo de rotas
+
+import { routes } from './app-route.module'; 
+
+// Importe os módulos que precisamos
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes)
+    provideRouter(routes), // Provê as rotas
+    provideAnimations(),   // Provê animações (bom ter)
+
+    // Isso é o MAIS IMPORTANTE:
+    // Importa os 'providers' do FormsModule (para ngModel) 
+    // e HttpClientModule (para seus services)
+    importProvidersFrom(FormsModule, HttpClientModule) 
   ]
 };

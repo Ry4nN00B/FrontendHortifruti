@@ -6,13 +6,12 @@ import { Router } from '@angular/router';
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.css']
 })
-export class CadastroComponent {
-
-  // Variáveis para o formulário
-  nome = '';
+export class CadastroComponent implements OnInit {
+  // Adicione estas variáveis
+  name = '';
   email = '';
   password = '';
-
+  
   constructor(private router: Router) {}
 
   onRegister(): void {

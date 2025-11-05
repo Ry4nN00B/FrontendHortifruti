@@ -7,11 +7,10 @@ import { AuthService } from '../../api/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
-  // Variáveis para ligar ao HTML
+export class LoginComponent implements OnInit {
+
   email = '';
   password = '';
-  errorMessage = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 

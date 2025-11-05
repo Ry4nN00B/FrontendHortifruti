@@ -5,7 +5,6 @@ export interface Product {
   quantity: number;
   validity: Date;
   qtoMinima: number;
-  category?: string; 
-  unit?: string;     
+  description?: string;
+  category?: string;
 }
-

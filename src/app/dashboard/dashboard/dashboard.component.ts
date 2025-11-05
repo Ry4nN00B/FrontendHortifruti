@@ -13,17 +13,17 @@ import { Observable, forkJoin } from 'rxjs'; // Usado para carregar múltiplos d
 export class DashboardComponent implements OnInit {
 
   // --- Variáveis para os cards de Resumo ---
-  totalVendas: number = 832; // (Mockado por enquanto)
-  faturamentoBruto: number = 18300; // (Mockado por enquanto)
+  totalVendas: number = 832; // (Mockado)
+  faturamentoBruto: number = 18300; // (Mockado)
   
   quantidadeEmEstoque: number = 0;
-  aReceber: number = 200; // (Mockado por enquanto)
+  aReceber: number = 200; // (Mockado)
   
   totalFornecedores: number = 0;
-  totalCategorias: number = 0; // (Mockado por enquanto)
+  totalCategorias: number = 0; // (Mockado)
 
   // --- Variáveis para as Tabelas ---
-  produtosMaisVendidos: any[] = []; // (Mockado por enquanto)
+  produtosMaisVendidos: any[] = []; // (Mockado)
   estoqueBaixo: Product[] = [];
 
   constructor(

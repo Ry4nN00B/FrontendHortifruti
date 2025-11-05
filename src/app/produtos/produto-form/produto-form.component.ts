@@ -8,12 +8,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-produto-form',
-  standalone: true, // Define como um componente standalone
-  imports: [
-    CommonModule, // Necessário para *ngIf, *ngFor
-    FormsModule   // Necessário para [(ngModel)]
-  ],
-  templateUrl: './produto-form.component.html',
+   templateUrl: './produto-form.component.html',
   styleUrls: ['./produto-form.component.css']
 })
 export class ProdutoFormComponent {
