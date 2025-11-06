@@ -1,22 +1,34 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs'; 
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs'; 
 import { Product } from '../models/product.model';
-import { MOCK_PRODUCTS } from './data-mock'; 
+
+import { API_URL } from './api.constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor() { }
+  private apiUrl = `${API_URL}/products`;
 
-  
+
+  constructor(private http: HttpClient) { }
+
   getProducts(): Observable<Product[]> {
-    return of(MOCK_PRODUCTS);
+    return this.http.get<Product[]>(this.apiUrl);
   }
 
-  
   saveProduct(product: Product): Observable<Product> {
-    return of(product);
+
+    return this.http.post<Product>(this.apiUrl, product);
+  }
+
+  updateProduct(id: string, product: Product): Observable<Product> {
+    return this.http.put<Product>(`${this.apiUrl}/${id}`, product);
+  }
+
+  deleteProduct(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

@@ -5,7 +5,6 @@
       <div class="logo-icon">H</div>
       <h1 class="logo-text">HORTIFRUTI</h1>
     </div>
-
     <nav class="main-nav">
       <span class="nav-section-title">NAVEGAÇÃO PRINCIPAL</span>
       <ul>
@@ -14,11 +13,22 @@
             <span>Dashboard</span>
           </a>
         </li>
-        <li>
-          <a routerLink="/inventario" routerLinkActive="active">
-            <span>Inventário</span>
-          </a>
-        </li>
+
+          <li>
+            <a routerLink="/produtos" routerLinkActive="active">
+              <span>Produtos</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/estoque" routerLinkActive="active">
+              <span>Estoque</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/categorias" routerLinkActive="active">
+              <span>Categorias</span>
+            </a>
+          </li>
         <li>
           <a routerLink="/relatorios" routerLinkActive="active">
             <span>Relatórios</span>
@@ -51,21 +61,18 @@
     </div>
   </aside>
 
-  <!-- CONTEÚDO PRINCIPAL (Main Content) -->
   <main class="content-area">
-    <!-- BARRA SUPERIOR (Topbar) -->
     <header class="topbar">
       <div class="search-bar">
         <input type="text" placeholder="Buscar produto, fornecedor..." />
       </div>
       <div class="user-profile">
         <div class="user-avatar">
-          <span>U</span> <!-- Inicial do usuário -->
+          <span>U</span>
         </div>
       </div>
     </header>
 
-    <!-- O <router-outlet> é onde o Angular carrega as páginas (Dashboard, etc.) -->
     <div class="page-content">
       <router-outlet></router-outlet>
     </div>

@@ -1,0 +1,45 @@
+<div class="page-container">
+  <h1 class="page-title">Controle de Estoque</h1>
+
+  <section class="card-table-container">
+    <div class="table-header-actions">
+      <h2 class="card-title">Status do Inventário</h2>
+      <div class="action-buttons">
+        <button class="btn btn-secondary btn-icon">Filtros</button>
+        <button class="btn btn-secondary btn-icon">Exportar</button>
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Categoria</th>
+            <th>Qtd. Atual</th>
+            <th>Qtd. Mínima</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products">
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.quantity }} Unid.</td>
+            <td>{{ product.qtoMinima }} Unid.</td>
+            <td>
+              <span *ngIf="product.quantity > product.qtoMinima" class="status-tag status-tag-success">Em Estoque</span>
+              <span *ngIf="product.quantity <= product.qtoMinima && product.quantity > 0" class="status-tag status-tag-warning">Estoque Baixo</span>
+              <span *ngIf="product.quantity === 0" class="status-tag status-tag-danger">Fora de Estoque</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+      <span>Exibindo {{ products.length }} produtos</span>
+    </div>
+
+  </section>
+</div>
