@@ -7,7 +7,6 @@
       <div class="action-buttons">
         <button class="btn btn-secondary btn-icon"> Filtros </button>
         <button class="btn btn-secondary btn-icon"> Download </button>
-        <!-- Esta função 'abrirModalAdicionarFornecedor' já existe no seu .ts -->
         <button class="btn btn-primary btn-icon" (click)="abrirModalAdicionarFornecedor()">
           Adicionar Fornecedor
         </button>
@@ -28,7 +27,6 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Loop nos dados do seu fornecedor-list.component.ts -->
           <tr *ngFor="let fornecedor of fornecedores">
             <td>{{ fornecedor.nomeFantasia }}</td>
             <td>{{ fornecedor.razaoSocial }}</td>

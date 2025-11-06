@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
     }).subscribe({
       next: (dados: any) => { 
         this.quantidadeEmEstoque = dados.produtos.reduce((acc: number, prod: any) => acc + prod.quantity, 0);
-    
+        
         this.produtosComEstoqueBaixo = dados.produtos.filter((prod: any) => prod.quantity < 15);
         
         this.totalFornecedores = dados.fornecedores.length;

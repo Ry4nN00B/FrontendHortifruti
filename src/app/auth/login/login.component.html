@@ -6,10 +6,6 @@
     <h2 class="auth-title">Faça Log In na sua conta</h2>
     <p class="auth-subtitle">Bem-vindo(a) de volta!</p>
 
-    <!-- 
-      (ngSubmit)="onLogin()" -> Chama a função no seu login.component.ts
-      [(ngModel)]="email" -> Conecta este input à variável 'email' no seu .ts
-    -->
     <form (ngSubmit)="onLogin()">
       <div class="form-group">
         <label for="email" class="form-label">Email</label>
@@ -47,7 +43,6 @@
 
       <button type="submit" class="btn btn-primary btn-block">Entrar</button>
 
-      <!-- *ngIf="errorMessage" -> Só mostra esta div se a variável 'errorMessage' no seu .ts tiver algum texto -->
       <div *ngIf="errorMessage" class="error-message">
         {{ errorMessage }}
       </div>

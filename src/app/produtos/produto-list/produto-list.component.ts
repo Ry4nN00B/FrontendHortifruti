@@ -13,7 +13,7 @@ import { ProdutoFormComponent } from '../produto-form/produto-form.component';
   imports: [CommonModule, RouterModule, ProdutoFormComponent]
 })
 export class ProdutoListComponent implements OnInit {
-  // ... (código interno está ok, só adicionei os tipos) ...
+
   produtos: Product[] = [];
   abrirModal: boolean = false;
 

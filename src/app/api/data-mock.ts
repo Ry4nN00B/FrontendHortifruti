@@ -1,14 +1,14 @@
 import { Product } from '../models/product.model';
 import { Supplier } from '../models/supplier.model';
 
-// Mock para Fornecedores (Corrigido para bater com o Model)
+// Mock para Fornecedores 
 export const MOCK_SUPPLIERS: Supplier[] = [
   { cnpj: '00.111.222/0001-00', nomeFantasia: 'Horta Fresca', razaoSocial: 'Horta Fresca Ltda', email: 'contato@hortafresca.com', telefone: '(11) 98765-4321', status: 'Ativo', pendingDeliveries: 3 },
   { cnpj: '11.222.333/0001-00', nomeFantasia: 'Frutas do Brasil', razaoSocial: 'Frutas BR S.A.', email: 'vendas@frutasbr.com', telefone: '(21) 99876-5432', status: 'Ativo', pendingDeliveries: 1 },
   { cnpj: '22.333.444/0001-00', nomeFantasia: 'Tomatexpress', razaoSocial: 'Distuidora Tomate', email: 'contato@tomatexpress.com', telefone: '(31) 97654-3210', status: 'Bloqueado', pendingDeliveries: 0 },
 ];
 
-// Mock para Produtos (Corrigido para bater com o Model)
+// Mock para Produtos 
 export const MOCK_PRODUCTS: Product[] = [
   {
     id: 'p1',

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core'; // Adicionado OnInit
-import { Router, RouterModule } from '@angular/router'; // Adicionado RouterModule
-import { CommonModule } from '@angular/common'; // IMPORTAR
-import { FormsModule } from '@angular/forms';     // IMPORTAR
+import { Component, OnInit } from '@angular/core'; 
+import { Router, RouterModule } from '@angular/router'; 
+import { CommonModule } from '@angular/common'; 
+import { FormsModule } from '@angular/forms';     
 
 @Component({
   selector: 'app-cadastro',
@@ -10,22 +10,19 @@ import { FormsModule } from '@angular/forms';     // IMPORTAR
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule] 
 })
-export class CadastroComponent implements OnInit { // Implementa OnInit
-  // Variáveis para o formulário
+export class CadastroComponent implements OnInit { 
   name = ''; 
   email = '';
   password = '';
 
   constructor(private router: Router) {}
 
-  // Adicionado o método ngOnInit obrigatório
   ngOnInit(): void {
   }
 
   onRegister(): void {
     // Lógica de cadastro (Mock)
-    console.log('Usuário registrado (Mock):', this.name, this.email); // Agora funciona
-    // Redireciona para o login após o cadastro
+    console.log('Usuário registrado (Mock):', this.name, this.email);
     this.router.navigate(['/login']);
   }
 }

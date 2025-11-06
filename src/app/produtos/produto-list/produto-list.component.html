@@ -1,9 +1,7 @@
 <div class="page-container">
   <h1 class="page-title">Inventário</h1>
 
-  <!-- 1. Tabela de Produtos -->
   <section class="card-table-container">
-    <!-- Cabeçalho com botões -->
     <div class="table-header-actions">
       <h2 class="card-title">Produtos</h2>
       <div class="action-buttons">
@@ -14,8 +12,6 @@
         </button>
       </div>
     </div>
-
-    <!-- Tabela -->
     <div class="table-wrapper">
       <table class="data-table">
         <thead>
@@ -30,7 +26,6 @@
           </tr>
         </thead>
         <tbody>
-          <!-- *ngFor="let produto of produtos" -> Loop nos dados do seu .ts -->
           <tr *ngFor="let produto of produtos">
             <td>{{ produto.name }}</td>
             <td>R$ {{ produto.price | number:'1.2-2' }}</td>
@@ -61,12 +56,6 @@
     </div>
   </section>
 </div>
-
-<!-- 
-  MODAL DE ADICIONAR PRODUTO
-  Este é o componente de formulário que completei para você.
-  Ele só aparece quando 'abrirModal' for 'true'.
--->
 <app-produto-form
   *ngIf="abrirModal"
   (closeModal)="fecharModalAdicionarProduto()"
