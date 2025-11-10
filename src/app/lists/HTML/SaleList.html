@@ -1,0 +1,127 @@
+<div class="page-container">
+    <h1 class="page-title">Gerenciar Vendas</h1>
+
+    <div *ngIf="statusMessage" class="toast" [ngClass]="statusType">
+        {{ statusMessage }}
+    </div>
+
+    <section class="card-table-container">
+        <div class="table-header-actions">
+            <h2 class="card-title">Todas Vendas</h2>
+            <div class="action-buttons">
+                <button class="btn btn-secondary-filter btn-icon" (click)="toggleFilters()">Filtros</button>
+                <button class="btn btn-primary btn-icon" (click)="goToNewSale()">
+                    Criar nova venda
+                </button>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Operador</th>
+                        <th>Data da Venda</th>
+                        <th>Itens</th>
+                        <th>Valor</th>
+                        <th>Método de Pagamento</th>
+                        <th>Status da Compra</th>
+                        <th style="width: 150px;">Ações</th>
+                    </tr>
+
+                    <!-- Filters -->
+                    <tr *ngIf="showFilters" class="filter-row">
+                        <th><input type="text" placeholder="Filtrar operador" [(ngModel)]="filters.operatorId"
+                                (input)="applyFilters()" />
+                        </th>
+                        <th>
+                            <input type="date" placeholder="Filtrar data" [(ngModel)]="filters.saleDate"
+                                (input)="applyFilters()" />
+                        </th>
+                        <th></th>
+                        <th>
+                            <input type="number" placeholder="Filtrar valor" [(ngModel)]="filters.value"
+                                (input)="applyFilters()" />
+                        </th>
+                        <th>
+                            <select [(ngModel)]="filters.paymentMethod" (change)="applyFilters()">
+                                <option value="">Todos</option>
+                                <option value="Cartão de Crédito">Cartão de Crédito</option>
+                                <option value="Cartão de Débito">Cartão de Débito</option>
+                                <option value="Dinheiro">Dinheiro</option>
+                            </select>
+                        </th>
+                        <th>
+                            <select [(ngModel)]="filters.status" (change)="applyFilters()">
+                                <option value="">Todos</option>
+                                <option value="PENDING">Pendente</option>
+                                <option value="CONFIRMED">Confirmado</option>
+                                <option value="CANCELLED">Cancelado</option>
+                            </select>
+                        </th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let sale of salesPaginated">
+                        <td>{{ getOperatorName(sale.operatorId) }}</td>
+                        <td>{{ sale.dateTime | date:'dd/MM/yyyy HH:mm' }}</td>
+                        <td>
+                            <button class="btn btn-secondary btn-sm" (click)="viewSaleItems(sale)">
+                                Ver Itens
+                            </button>
+                        </td>
+                        <td>{{ sale.total | currency:'BRL' }}</td>
+                        <td>{{ getPaymentMethodName(sale.paymentMethod) }}</td>
+                        <td>{{ getPaymentStatusName(sale.status) }}</td>
+                        <td>
+                            <button class="btn-action delete" (click)="deleteSale(sale.id)">Excluir</button>
+                            <button class="btn-action edit" (click)="confirmSale(sale.id)">Confirmar</button>
+                            <button class="btn-action delete" (click)="cancelSale(sale.id)">Cancelar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" *ngIf="totalPages > 0">
+            <span>Página {{ currentPage }} de {{ totalPages }}</span>
+            <div class="pagination-controls" *ngIf="totalPages > 1">
+                <button class="btn btn-secondary" (click)="previousPage()" [disabled]="currentPage === 1">
+                    Anterior
+                </button>
+                <button class="btn btn-secondary" (click)="nextPage()" [disabled]="currentPage === totalPages">
+                    Próximo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sale Item Details -->
+    <section *ngIf="selectedSaleItems" class="sale-details">
+        <div class="details-header">
+            <h3>Itens da Venda</h3>
+            <button class="btn btn-secondary btn-sm" (click)="closeSaleItems()">Fechar</button>
+        </div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Valor Unitário</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of selectedSaleItems">
+                    <td>{{ productMap.get(item.productId) }}</td>
+                    <td>{{ item.amount }}</td>
+                    <td>{{ item.unitPrice | currency:'BRL' }}</td>
+                    <td>{{ (item.amount * item.unitPrice) | currency:'BRL' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</div>

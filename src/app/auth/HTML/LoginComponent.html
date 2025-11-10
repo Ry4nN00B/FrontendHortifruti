@@ -1,0 +1,81 @@
+<div class="auth-container" style="
+    background: url('https://cdn.discordapp.com/attachments/708361060775886960/1437214353253203989/hostifrutibackground.png?ex=69126dab&is=69111c2b&hm=5b8f523ac9e0f6b5f1d861c10351b4c924a13907159c55a01abe394aa603e669&') no-repeat center center;
+    background-size: cover;
+    position: relative;
+  ">
+  <div style="
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 0;
+    ">
+  </div>
+
+  <div class="auth-box">
+    <div class="auth-logo">
+      <h1 class="logo-text">HORTIFRUTI</h1>
+    </div>
+
+    <h2 class="auth-title">Faça Log In na sua conta</h2>
+    <p class="auth-subtitle">Bem-vindo(a) de volta!</p>
+
+    <form (ngSubmit)="onLogin()">
+
+      <!-- Auth Email -->
+      <div class="form-group">
+        <label for="authEmail" class="form-label">Email</label>
+        <input type="email" id="authEmail" class="form-control" placeholder="Digite seu email"
+          [(ngModel)]="loginDTO.email" name="email" required />
+      </div>
+
+      <!-- Auth Password-->
+      <div class="form-group password-group">
+        <label for="authPassword" class="form-label">Senha</label>
+        <div class="password-wrapper">
+          <input [type]="passwordVisible ? 'text' : 'password'" id="authPassword" class="form-control password-input"
+            placeholder="Digite sua senha..." [(ngModel)]="loginDTO.password" name="password" required />
+
+          <button type="button" class="btn-icon" (click)="togglePassword()" (mousedown)="$event.preventDefault()"
+            [attr.aria-pressed]="passwordVisible"
+            [attr.aria-label]="passwordVisible ? 'Ocultar senha' : 'Mostrar senha'">
+
+            <ng-container *ngIf="!passwordVisible; else eyeOpen">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7z"
+                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </ng-container>
+
+            <ng-template #eyeOpen>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-5 0-9.27-3.11-11-7 .83-1.86 2.07-3.49 3.6-4.79"
+                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M1 1l22 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </ng-template>
+          </button>
+        </div>
+      </div>
+
+      <!-- Auth Remember -->
+      <div class="form-options">
+        <div class="form-check">
+          <input type="checkbox" id="remember" name="remember" />
+          <label for="remember">Lembrar por 30 dias</label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+
+    </form>
+  </div>
+</div>

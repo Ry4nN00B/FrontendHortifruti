@@ -1,42 +1,95 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './auth/login/login.component';
-import { CadastroComponent } from './auth/cadastro/cadastro.component';
-import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
-import { DashboardComponent } from './dashboard/dashboard/dashboard.component'; 
-import { FornecedorListComponent } from './fornecedores/fornecedor-list/fornecedor-list.component';
-import { ProdutoListComponent } from './produtos/produto-list/produto-list.component';
-import { RelatoriosComponent } from './relatorios/relatorios/relatorios.component'; 
-import { EstoqueComponent } from './estoque/estoque.component';
-import { CategoriasComponent } from './categorias/categorias.component';
-import { authGuard } from './api/auth.guard'; 
-import { roleGuard } from './api/role.guard'; 
+
+import { LoginComponent } from './auth/TypeScript/LoginComponent';
+import { RegisterComponent } from './auth/TypeScript/RegisterComponent';
+
+import { DashboardComponent } from './dashboards/TypeScript/Dashboard';
+import { CategoryList } from './lists/TypeScript/CategoryList';
+import { SupplierList } from './lists/TypeScript/SupplierList';
+import { ProductList } from './lists/TypeScript/ProductList';
+import { StockList } from './lists/TypeScript/StockList';
+import { PromotionList } from './lists/TypeScript/PromotionList';
+import { SaleList } from './lists/TypeScript/SaleList';
+import { ReportList } from './lists/TypeScript/ReportList';
+
+import { SaleForm } from './forms/TypeScript/SaleForm';
+
+import { MainLayoutComponent } from './layout/main-layout/MainLayout';
+
+import { authGuard } from './api/AuthGuard';
 
 export const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'registrar',
+    component: RegisterComponent,
+    canActivate: [authGuard],
+    data: { roles: ['GERENTE'] }
+  },
 
-    { path: 'login', component: LoginComponent },
-    { path: 'cadastro', component: CadastroComponent },
-         {
-        path: '', 
-        component: MainLayoutComponent,
-        canActivate: [authGuard], 
-        children: [
-            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-            { path: 'dashboard', component: DashboardComponent },
-            { path: 'produtos', component: ProdutoListComponent },
-            { path: 'estoque', component: EstoqueComponent },
-            { path: 'relatorios', component: RelatoriosComponent },
-            { 
-              path: 'fornecedores', 
-              component: FornecedorListComponent,
-              canActivate: [roleGuard] 
-            },
-            { 
-              path: 'categorias', 
-              component: CategoriasComponent,
-              canActivate: [roleGuard] 
-            }
-        ]
-    },
-    
-    { path: '**', redirectTo: 'login' }
+  {
+    path: '',
+    component: MainLayoutComponent,
+    canActivate: [authGuard],
+    data: { roles: ['GERENTE', 'ESTOQUISTA', 'OPERADOR'] },
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        canActivate: [authGuard],
+        data: { roles: ['GERENTE', 'ESTOQUISTA', 'OPERADOR'] }
+      },
+      {
+        path: 'categorias',
+        component: CategoryList,
+        canActivate: [authGuard],
+        data: { roles: ['GERENTE', 'ESTOQUISTA'] }
+      },
+      {
+        path: 'fornecedores',
+        component: SupplierList,
+        canActivate: [authGuard],
+        data: { roles: ['GERENTE', 'ESTOQUISTA'] }
+      },
+      {
+        path: 'produtos',
+        component: ProductList,
+        canActivate: [authGuard],
+        data: { roles: ['GERENTE', 'ESTOQUISTA'] }
+      },
+      {
+        path: 'nova-venda',
+        component: SaleForm,
+        canActivate: [authGuard],
+        data: { roles: ['GERENTE', 'OPERADOR'] }
+      },
+      {
+        path: 'estoque',
+        component: StockList,
+        canActivate: [authGuard],
+        data: { roles: ['GERENTE', 'ESTOQUISTA'] }
+      },
+      {
+        path: 'promocoes',
+        component: PromotionList,
+        canActivate: [authGuard],
+        data: { roles: ['GERENTE', 'OPERADOR'] }
+      },
+      {
+        path: 'vendas',
+        component: SaleList,
+        canActivate: [authGuard],
+        data: { roles: ['GERENTE', 'OPERADOR'] }
+      },
+      {
+        path: 'relatorios',
+        component: ReportList,
+        canActivate: [authGuard],
+        data: { roles: ['GERENTE'] }
+      }
+    ]
+  },
+
+  { path: '**', redirectTo: 'login' }
 ];

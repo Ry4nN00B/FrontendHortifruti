@@ -1,0 +1,87 @@
+<div class="page-container">
+  <h1 class="page-title">Gerenciar Fornecedores </h1>
+
+  <div *ngIf="statusMessage" class="toast" [ngClass]="statusType">
+    {{ statusMessage }}
+  </div>
+
+  <section class="card-table-container">
+    <div class="table-header-actions">
+      <h2 class="card-title">Todos Fornecedores</h2>
+      <div class="action-buttons">
+        <button class="btn btn-secondary btn-icon" (click)="toggleFilters()">
+          Filtros
+        </button>
+
+        <button class="btn btn-primary btn-icon" (click)="openSupplierAddModal()">
+          Adicionar Fornecedor
+        </button>
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+
+          <div *ngIf="statusMessage" class="toast" [ngClass]="statusType">
+            {{ statusMessage }}
+          </div>
+
+          <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Telefone</th>
+            <th>Email</th>
+            <th>CNPJ</th>
+            <th>Ações</th>
+          </tr>
+
+          <!-- Filters -->
+          <tr *ngIf="showFilters" class="filter-row">
+            <th><input type="text" placeholder="Filtrar nome" [(ngModel)]="filters.name" (input)="applyFilters()" />
+            </th>
+            <th><input type="text" placeholder="Filtrar descrição" [(ngModel)]="filters.description"
+                (input)="applyFilters()" /></th>
+            <th><input type="text" placeholder="Filtrar telefone" [(ngModel)]="filters.phoneNumber"
+                (input)="applyFilters()" /></th>
+            <th><input type="text" placeholder="Filtrar email" [(ngModel)]="filters.email" (input)="applyFilters()" />
+            </th>
+            <th><input type="text" placeholder="Filtrar CNPJ" [(ngModel)]="filters.cnpj" (input)="applyFilters()" />
+            </th>
+            <th></th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let supplier of suppliersPaginated">
+            <td>{{ supplier.name }}</td>
+            <td>{{ supplier.description }}</td>
+            <td>{{ supplier.phoneNumber }}</td>
+            <td>{{ supplier.email }}</td>
+            <td>{{ supplier.cnpj }}</td>
+            <td>
+              <button class="btn-action edit" (click)="editSupplier(supplier)">Editar</button>
+              <button class="btn-action delete" (click)="deleteSupplier(supplier.id)">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <!-- Pagination -->
+    <div class="pagination" *ngIf="totalPages > 0">
+      <span>Página {{ currentPage }} de {{ totalPages }}</span>
+
+      <div class="pagination-controls" *ngIf="totalPages > 1">
+        <button class="btn btn-secondary" (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+        <button class="btn btn-secondary" (click)="nextPage()" [disabled]="currentPage === totalPages">Próximo</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<supplierForm *ngIf="showModal" [supplier]="selectedSupplier" (supplierCreate)="onSupplierCreate()"
+  (supplierSaved)="onSupplierSaved()" (closeModal)="closeSupplierAddModal()">
+</supplierForm>

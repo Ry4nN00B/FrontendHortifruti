@@ -1,0 +1,62 @@
+<div class="modal-backdrop" (click)="closeModal.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+
+    <div class="modal-header">
+      <h2 class="modal-title">{{ promotion?.id ? 'Editar Promoção' : 'Nova Promoção' }}</h2>
+      <button class="btn-close" (click)="closeModal.emit()">&times;</button>
+    </div>
+
+    <form class="modal-body" (ngSubmit)="savePromotion()">
+      <div class="form-scroll-area">
+
+        <!-- Promotion Product -->
+        <div class="form-group">
+          <label class="form-label">Produto</label>
+          <select class="form-control" [(ngModel)]="promotionDTO.productId" name="promotionName" required>
+            <option value="" disabled>Selecione o produto</option>
+            <option *ngFor="let product of products" [value]="product.id">
+              {{ product.name }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Promotion Type -->
+        <div class="form-group">
+          <label class="form-label">Tipo de desconto</label>
+          <select class="form-control" [(ngModel)]="promotionDTO.type" name="promotionType" required>
+            <option value="" disabled>Selecione o tipo</option>
+            <option value="FIXED_VALUE">Valor Fixo</option>
+            <option value="PERCENT">Porcentagem</option>
+          </select>
+        </div>
+
+        <!-- Promotion Value -->
+        <div class="form-group">
+          <label class="form-label">Valor do desconto</label>
+          <input type="number" class="form-control" placeholder="Digite o valor do desconto..."
+            [(ngModel)]="promotionDTO.value" name="promotionValue" required />
+        </div>
+
+        <!-- Promotion Start Date -->
+        <div class="form-group">
+          <label class="form-label">Data de Início</label>
+          <input type="date" class="form-control" [(ngModel)]="promotionDTO.startDate" name="promotionStartDate"
+            required />
+        </div>
+
+        <!-- Promotion End Date -->
+        <div class="form-group">
+          <label class="form-label">Data de Término</label>
+          <input type="date" class="form-control" [(ngModel)]="promotionDTO.endDate" name="promotionEndDate" required />
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal.emit()">Cancelar</button>
+        <button type="submit" class="btn btn-primary">{{ promotion?.id ? 'Salvar promoção' : 'Criar promoção'
+          }}</button>
+      </div>
+    </form>
+  </div>
+</div>

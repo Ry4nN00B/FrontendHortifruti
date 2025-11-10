@@ -1,0 +1,94 @@
+<div class="main-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-icon">H</div>
+      <h1 class="logo-text">HORTIFRUTI</h1>
+    </div>
+
+    <nav class="main-nav">
+      <span class="nav-section-title">SEÇÕES</span>
+      <ul>
+        <!-- Dashboard -->
+        <li><a routerLink="/dashboard" routerLinkActive="active"><span>Dashboard</span></a></li>
+
+        <!-- Category -->
+        <li *ngIf="canSee([UserRole.GERENTE, UserRole.ESTOQUISTA])">
+          <a routerLink="/categorias" routerLinkActive="active"><span>Categorias</span></a>
+        </li>
+
+        <!-- Supplier -->
+        <li *ngIf="canSee([UserRole.GERENTE, UserRole.ESTOQUISTA])">
+          <a routerLink="/fornecedores" routerLinkActive="active"><span>Fornecedores</span></a>
+        </li>
+
+        <!-- Product -->
+        <li *ngIf="canSee([UserRole.GERENTE, UserRole.ESTOQUISTA])">
+          <a routerLink="/produtos" routerLinkActive="active"><span>Produtos</span></a>
+        </li>
+
+        <!-- Stock -->
+        <li *ngIf="canSee([UserRole.GERENTE, UserRole.ESTOQUISTA])">
+          <a routerLink="/estoque" routerLinkActive="active"><span>Estoque</span></a>
+        </li>
+
+        <!-- Promotion -->
+        <li *ngIf="canSee([UserRole.GERENTE, UserRole.OPERADOR])">
+          <a routerLink="/promocoes" routerLinkActive="active"><span>Promoções</span></a>
+        </li>
+
+        <!-- Sale -->
+        <li *ngIf="canSee([UserRole.GERENTE, UserRole.OPERADOR])">
+          <a routerLink="/vendas" routerLinkActive="active"><span>Vendas</span></a>
+        </li>
+
+        <!-- Report -->
+        <li *ngIf="canSee([UserRole.GERENTE])">
+          <a routerLink="/relatorios" routerLinkActive="active"><span>Relatorios</span></a>
+        </li>
+      </ul>
+
+    </nav>
+
+    <div class="sidebar-footer">
+      <nav class="main-nav">
+        <span class="nav-section-title">CONFIGURAÇÕES</span>
+        <ul>
+
+          <!-- Register -->
+          <li *ngIf="canSee([UserRole.GERENTE])">
+            <a routerLink="/registrar" routerLinkActive="active">
+              <span>Registrar Usuário</span>
+            </a>
+          </li>
+
+          <!-- Logout -->
+          <li>
+            <a (click)="logout()" class="logout-link">
+              <span>Log Out</span>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+    </div>
+
+  </aside>
+
+  <main class="content-area">
+
+    <header class="topbar">
+      <div class="search-bar">
+        <input type="text" placeholder="Buscar produto, fornecedor..." />
+      </div>
+
+      <div class="user-profile">
+        <div class="user-avatar"><span>U</span></div>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </main>
+</div>

@@ -1,0 +1,87 @@
+<div class="dashboard-container" style="
+    background: url('https://cdn.discordapp.com/attachments/708361060775886960/1437214353253203989/hostifrutibackground.png?ex=69126dab&is=69111c2b&hm=5b8f523ac9e0f6b5f1d861c10351b4c924a13907159c55a01abe394aa603e669&') no-repeat center center;
+    background-size: cover;
+    position: relative;
+  ">
+  
+  <div class="header">
+    <h1>Hortifruti Resumo</h1>
+    <button (click)="updateDashboard()" [disabled]="isLoading">
+      <ng-container *ngIf="!isLoading; else loading">
+        🔄 Atualizar
+      </ng-container>
+      <ng-template #loading>
+        <span class="spinner"></span> Atualizando...
+      </ng-template>
+    </button>
+  </div>
+
+  <!-- Top Section -->
+  <div class="top-section">
+    <div class="title">
+      <h2>Hortifruti Dashboard</h2>
+      <p>Resumo geral das vendas e estoque</p>
+
+      <!-- Produtos mais vendidos da semana -->
+      <p class="extra-info" *ngIf="topSellingProducts.length > 0">
+        Os itens mais vendidos da semana são:
+        <ng-container *ngFor="let product of topSellingProducts; let last = last">
+          <strong>{{ product.name }}</strong>{{ last ? '' : ',' }}
+        </ng-container>.
+      </p>
+
+      <p class="extra-info" *ngIf="!topSellingProducts?.length">
+        Nenhum produto vendido ainda nesta semana.
+      </p>
+    </div>
+
+    <!-- Gráfico de categorias -->
+    <div class="chart-container">
+      <canvas id="mainChart"></canvas>
+    </div>
+  </div>
+
+  <div class="bottom-section">
+
+    <!-- Left Section -->
+    <div class="chart-box">
+      <h3>Vendas Semanais</h3>
+      <canvas id="weeklySalesChart"></canvas>
+      <div *ngIf="isLoadingSales" class="loading-text">Carregando dados...</div>
+      <div *ngIf="!isLoadingSales && weeklySalesData.length === 0" class="no-data-text">
+        Nenhuma venda registrada nesta semana.
+      </div>
+    </div>
+
+    <!-- Right Section -->
+    <div class="info-box">
+      <h3>Alertas de Estoque</h3>
+
+      <!-- Products Low Stock -->
+      <div *ngIf="lowStockItems.length > 0">
+        <h4>🍅 Produtos com estoque baixo</h4>
+        <ul>
+          <li *ngFor="let item of lowStockItems">
+            {{ lowStockItemsName.get(item.id) }} – estoque baixo ({{ item.amount }} unidades)
+          </li>
+        </ul>
+      </div>
+
+      <!-- Products Near Expiration -->
+      <div *ngIf="nearExpirationItems.length > 0">
+        <h4>⏳ Produtos próximos da validade</h4>
+        <ul>
+          <li *ngFor="let item of nearExpirationItems">
+            {{ nearExpirationItemsName.get(item.id) }} – vence em
+            {{ calculateDaysToExpire(item.validity) }} dias
+          </li>
+        </ul>
+      </div>
+
+      <!-- No Alerts -->
+      <div *ngIf="!lowStockItems?.length && !nearExpirationItems?.length">
+        <p>Todos os produtos estão dentro do estoque ideal e com validade adequada ✅</p>
+      </div>
+    </div>
+  </div>
+</div>

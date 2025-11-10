@@ -1,0 +1,43 @@
+<div class="modal-backdrop" (click)="closeModal.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+
+    <div class="modal-header">
+      <h2 class="modal-title">Novo Estoque</h2>
+      <button class="btn-close" (click)="closeModal.emit()">&times;</button>
+    </div>
+
+    <form class="modal-body" (ngSubmit)="saveStock()">
+      <div class="form-scroll-area">
+
+        <!-- Stock ProductID -->
+        <div class="form-group">
+          <label class="form-label">Produto</label>
+          <select class="form-control" [(ngModel)]="stockDTO.productId" name="stockProduct" required>
+            <option value="" disabled>Selecione o produto</option>
+            <option *ngFor="let product of products" [value]="product.id">
+              {{ product.name }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Stock Amount -->
+        <div class="form-group">
+          <label class="form-label">Quantidade</label>
+          <input type="number" class="form-control" placeholder="Digite a quantidade..." [(ngModel)]="stockDTO.amount"
+            name="stockAmount" required />
+        </div>
+
+        <!-- Stock Validity -->
+        <div class="form-group">
+          <label class="form-label">Validade</label>
+          <input type="date" class="form-control" [(ngModel)]="stockDTO.validity" name="stockValidity" required />
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal.emit()">Descartar</button>
+        <button type="submit" class="btn btn-primary">Salvar Estoque</button>
+      </div>
+    </form>
+  </div>
+</div>

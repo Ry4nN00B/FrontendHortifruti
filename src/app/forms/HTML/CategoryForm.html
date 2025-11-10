@@ -1,0 +1,36 @@
+<div class="modal-backdrop" (click)="closeModal.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+
+    <div class="modal-header">
+      <h2 class="modal-title">
+        {{ category?.id ? 'Editar Categoria' : 'Nova Categoria' }}
+      </h2>
+      <button class="btn-close" (click)="closeModal.emit()">&times;</button>
+    </div>
+
+    <form class="modal-body" (ngSubmit)="saveCategory()">
+      <div class="form-scroll-area">
+
+        <!-- Category Name -->
+        <div class="form-group">
+          <label for="categoryName" class="form-label">Nome da categoria</label>
+          <input type="text" id="categoryName" class="form-control" placeholder="Digite o nome da categoria..."
+            [(ngModel)]="categoryDTO.name" name="categoryName" required />
+        </div>
+
+        <!-- Category Description -->
+        <div class="form-group">
+          <label for="categoryDesc" class="form-label">Descrição da categoria</label>
+          <input type="text" id="categoryDesc" class="form-control" placeholder="Digite a descrição da categoria..."
+            [(ngModel)]="categoryDTO.description" name="categoryDesc" required />
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal.emit()">Cancelar</button>
+        <button type="submit" class="btn btn-primary">{{ category?.id ? 'Salvar categoria' : 'Criar categoria'
+          }}</button>
+      </div>
+    </form>
+  </div>
+</div>

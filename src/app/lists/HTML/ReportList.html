@@ -1,0 +1,33 @@
+<div class="page-container">
+  <h1 class="page-title">Relatórios Disponíveis</h1>
+
+  <section class="card-table-container">
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Nome do Relatório</th>
+            <th>Descrição</th>
+            <th style="width: 180px;">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of reports">
+            <td>{{ report.name }}</td>
+            <td>{{ report.description }}</td>
+            <td>
+              <button class="btn-action download" (click)="generatePDF(report)">Baixar PDF</button>
+              <button class="btn-action view" (click)="generatePDF(report, true)">Visualizar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Preview Selected Report -->
+  <section *ngIf="selectedReportData" class="report-preview">
+    <h2>Visualização do Relatório</h2>
+    <pre>{{ selectedReportData | json }}</pre>
+  </section>
+</div>

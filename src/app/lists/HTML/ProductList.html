@@ -1,0 +1,107 @@
+<div class="page-container">
+  <h1 class="page-title">Gerenciar Produtos</h1>
+
+  <div *ngIf="statusMessage" class="toast" [ngClass]="statusType">
+    {{ statusMessage }}
+  </div>
+
+  <section class="card-table-container">
+    <div class="table-header-actions">
+      <h2 class="card-title">Todos Produtos</h2>
+      <div class="action-buttons">
+        <button class="btn btn-secondary btn-icon" (click)="toggleFilters()">
+          Filtros
+        </button>
+
+        <button class="btn btn-primary btn-icon" (click)="openProductAddModal()">
+          Adicionar Produto
+        </button>
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+
+          <div *ngIf="statusMessage" class="toast" [ngClass]="statusType">
+            {{ statusMessage }}
+          </div>
+
+          <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Preço Unitário</th>
+            <th>Categoria</th>
+            <th>Fornecedor</th>
+            <th>Venda por Peso</th>
+            <th>Ações</th>
+          </tr>
+
+          <!-- Filters -->
+          <tr *ngIf="showFilters" class="filter-row">
+            <th>
+              <input type="text" placeholder="Filtrar nome" [(ngModel)]="filters.name" (input)="applyFilters()" />
+            </th>
+            <th>
+              <input type="text" placeholder="Filtrar descrição" [(ngModel)]="filters.description"
+                (input)="applyFilters()" />
+            </th>
+            <th>
+              <input type="number" placeholder="Filtrar preço" [(ngModel)]="filters.price" (input)="applyFilters()" />
+            </th>
+            <th>
+              <input type="text" placeholder="Filtrar categoria" [(ngModel)]="filters.categoryId"
+                (input)="applyFilters()" />
+            </th>
+            <th>
+              <input type="text" placeholder="Filtrar fornecedor" [(ngModel)]="filters.supplierId"
+                (input)="applyFilters()" />
+            </th>
+            <th>
+              <select [(ngModel)]="filters.soldByWeight" (change)="applyFilters()">
+                <option value="">Todos</option>
+                <option value="true">Sim</option>
+                <option value="false">Não</option>
+              </select>
+            </th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let product of productsPaginated">
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>R${{ product.price | number:'1.2-2' }}</td>
+            <td>{{ categoryMap.get(product.categoryId) }}</td>
+            <td>{{ supplierMap.get(product.supplierId) }}</td>
+            <td>{{ product.soldByWeight ? 'Sim' : 'Não' }}</td>
+            <td>
+              <button class="btn-action edit" (click)="editProduct(product)">Editar</button>
+              <button class="btn-action delete" (click)="deleteProduct(product.id)">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" *ngIf="totalPages > 0">
+      <span>Página {{ currentPage }} de {{ totalPages }}</span>
+
+      <div class="pagination-controls" *ngIf="totalPages > 1">
+        <button class="btn btn-secondary" (click)="previousPage()" [disabled]="currentPage === 1">
+          Anterior
+        </button>
+
+        <button class="btn btn-secondary" (click)="nextPage()" [disabled]="currentPage === totalPages">
+          Próximo
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<productForm *ngIf="showModal" [product]="selectedProduct" (productCreate)="onProductCreate()"
+  (productSaved)="onProductSaved()" (closeModal)="closeProductAddModal()">
+</productForm>

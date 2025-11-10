@@ -1,0 +1,90 @@
+<div class="page-container">
+    <h1 class="page-title">Gerenciar Estoques</h1>
+
+    <div *ngIf="statusMessage" class="toast" [ngClass]="statusType">
+        {{ statusMessage }}
+    </div>
+
+    <section class="card-table-container">
+        <div class="table-header-actions">
+            <h2 class="card-title">Todos Estoques</h2>
+            <div class="action-buttons">
+                <button class="btn btn-secondary btn-icon" (click)="cleanEmptyStock()"> Limpar lote vazio </button>
+                <button class="btn btn-secondary btn-icon" (click)="toggleFilters()"> Filtros </button>
+                <button class="btn btn-primary btn-icon" (click)="openStockAddModal()">Adicionar Estoque</button>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+
+                    <div *ngIf="statusMessage" class="toast" [ngClass]="statusType">
+                        {{ statusMessage }}
+                    </div>
+
+                    <tr>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                        <th>Data Entrada</th>
+                        <th>Data Validade</th>
+                        <th style="width: 150px;">Ações</th>
+                    </tr>
+
+                    <!-- Filters -->
+                    <tr *ngIf="showFilters" class="filter-row">
+                        <th><input type="text" placeholder="Filtrar produto" [(ngModel)]="filters.productId"
+                                (input)="applyFilters()" />
+                        </th>
+                        <th>
+                            <input type="number" placeholder="Filtrar quantidade" [(ngModel)]="filters.amount"
+                                (input)="applyFilters()" />
+                        </th>
+                        <th>
+                            <input type="date" placeholder="Filtrar data" [(ngModel)]="filters.entryDate"
+                                (input)="applyFilters()" />
+                        </th>
+                        <th>
+                            <input type="date" placeholder="Filtrar data" [(ngModel)]="filters.validity"
+                                (input)="applyFilters()" />
+                        </th>
+
+                        <th></th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr *ngFor="let stock of stocksPaginated">
+                        <td>{{ productMap.get(stock.productId) }}</td>
+                        <td>{{ stock.amount }}</td>
+                        <td>{{ stock.entryDate | date:'dd/MM/yyyy' }}</td>
+                        <td>{{ stock.validity | date:'dd/MM/yyyy' }}</td>
+
+                        <td>
+                            <button class="btn-action delete" (click)="deleteStock(stock.id)">Excluir</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" *ngIf="totalPages > 0">
+            <span>Página {{ currentPage }} de {{ totalPages }}</span>
+
+            <!-- Controls only appear if there is more than one page -->
+            <div class="pagination-controls" *ngIf="totalPages > 1">
+                <button class="btn btn-secondary" (click)="previousPage()" [disabled]="currentPage === 1">
+                    Anterior
+                </button>
+
+                <button class="btn btn-secondary" (click)="nextPage()" [disabled]="currentPage === totalPages">
+                    Próximo
+                </button>
+            </div>
+        </div>
+    </section>
+</div>
+
+<stockForm *ngIf="showModal" (closeModal)="closeStockAddModal()" (stockCreate)="onStockCreate()">
+</stockForm>

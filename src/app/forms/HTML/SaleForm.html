@@ -1,0 +1,84 @@
+<div class="page-container">
+    <h1 class="page-title">Nova Venda</h1>
+
+    <!-- Sale Operator -->
+    <div class="form-group">
+        <label>Operador:</label>
+        <input type="text" [value]="operatorName" readonly class="form-control">
+    </div>
+
+    <!-- Payment Method -->
+    <div class="form-group">
+        <label>Forma de Pagamento:</label>
+        <select [(ngModel)]="selectedPaymentMethod" class="form-control">
+            <option *ngFor="let method of paymentMethods" [value]="method">{{ method }}</option>
+        </select>
+    </div>
+
+    <!-- Product Selection -->
+    <div class="form-group">
+        <label>Produtos</label>
+        <div class="add-item">
+            <select [(ngModel)]="selectedProductId" class="form-control">
+                <option value="" disabled>Selecione um produto</option>
+                <option *ngFor="let p of products" [value]="p.id">
+                    {{ p.name }} -
+                    <span *ngIf="getPromotedPrice(p.id) < p.price">
+                        <s>{{ p.price | currency:'BRL' }}</s>
+                        {{ getPromotedPrice(p.id) | currency:'BRL' }}
+                        ({{ getPromotionLabel(p.id) }})
+                    </span>
+                    <span *ngIf="getPromotedPrice(p.id) >= p.price">
+                        {{ p.price | currency:'BRL' }}
+                    </span>
+                    ({{ p.soldByWeight ? 'Kg' : 'Un' }}) - Estoque: {{ getProductStock(p.id) }}
+                </option>
+            </select>
+
+            <input type="number" [step]="getSelectedProduct()?.soldByWeight ? 0.01 : 1" [(ngModel)]="selectedQuantity"
+                [max]="getProductStock(selectedProductId)"
+                (input)="validateQuantity(getSelectedProduct()!, $event.target.value)" min="0.01"
+                placeholder="Quantidade" class="form-control">
+
+            <button class="btn btn-primary" (click)="addProduct()">Adicionar Produto</button>
+        </div>
+    </div>
+
+    <!-- Sale Items Table -->
+    <div class="table-wrapper" *ngIf="saleItems.length > 0">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Valor Unitário</th>
+                    <th>Total</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of saleItems">
+                    <td>{{ item.productName }}</td>
+                    <td>{{ item.amount }} {{ getProductUnit(item.productId) }}</td>
+                    <td>{{ item.unitPrice | currency:'BRL' }}</td>
+                    <td>{{ (item.unitPrice * item.amount) | currency:'BRL' }}</td>
+                    <td>
+                        <button class="btn-action delete" (click)="removeItem(item.productId)">Remover</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Sale Total -->
+    <div class="total-sale" *ngIf="saleItems.length > 0">
+        <h3>Total: {{ totalSale | currency:'BRL' }}</h3>
+    </div>
+
+    <!-- Finalize Sale -->
+    <div class="actions">
+        <button class="btn btn-primary" (click)="finalizeSale()" [disabled]="saleItems.length === 0">
+            Finalizar Venda
+        </button>
+    </div>
+</div>

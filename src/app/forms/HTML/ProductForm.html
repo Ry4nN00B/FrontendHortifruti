@@ -1,0 +1,73 @@
+<div class="modal-backdrop" (click)="closeModal.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+
+    <div class="modal-header">
+      <h2 class="modal-title">
+        {{ product?.id ? 'Editar Produto' : 'Novo Produto' }}
+      </h2>
+      <button class="btn-close" (click)="closeModal.emit()">&times;</button>
+    </div>
+
+    <form class="modal-body" (ngSubmit)="saveProduct()">
+      <div class="form-scroll-area">
+
+        <!-- Product Name -->
+        <div class="form-group">
+          <label for="productName" class="form-label">Nome do produto</label>
+          <input type="text" id="productName" class="form-control" placeholder="Digite o nome do produto..."
+            [(ngModel)]="productDTO.name" name="productName" required />
+        </div>
+
+        <!-- Product Description -->
+        <div class="form-group">
+          <label for="productDesc" class="form-label">Descrição do produto</label>
+          <input type="text" id="productDesc" class="form-control" placeholder="Digite a descrição do produto..."
+            [(ngModel)]="productDTO.description" name="productDesc" required />
+        </div>
+
+        <!-- Product Price -->
+        <div class="form-group">
+          <label for="productPrice" class="form-label">Preço Unitário</label>
+          <input type="number" id="productPrice" class="form-control" placeholder="Digite o preço do produto..."
+            [(ngModel)]="productDTO.price" name="productPrice" />
+        </div>
+
+        <!-- Product Category -->
+        <div class="form-group">
+          <label for="productCategory" class="form-label">Categoria</label>
+          <select id="productCategory" class="form-control" [(ngModel)]="productDTO.categoryId" name="productCategory"
+            required>
+            <option value="" disabled selected>Selecione a categoria</option>
+            <option *ngFor="let category of categories" [value]="category.id">
+              {{ category.name }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Product Supplier -->
+        <div class="form-group">
+          <label for="productSupplier" class="form-label">Fornecedor</label>
+          <select id="productSupplier" class="form-control" [(ngModel)]="productDTO.supplierId" name="productSupplier"
+            required>
+            <option value="" disabled selected>Selecione o fornecedor</option>
+            <option *ngFor="let supplier of suppliers" [value]="supplier.id">
+              {{ supplier.name }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Product Sold By Weigth -->
+        <div class="form-group form-check">
+          <input type="checkbox" id="soldByWeight" class="form-check-input" [(ngModel)]="productDTO.soldByWeight"
+            name="soldByWeight" />
+          <label for="soldByWeight" class="form-check-label">Vendido por peso?</label>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal.emit()">Cancelar</button>
+        <button type="submit" class="btn btn-primary">{{ product?.id ? 'Salvar produto' : 'Criar produto' }}</button>
+      </div>
+    </form>
+  </div>
+</div>
