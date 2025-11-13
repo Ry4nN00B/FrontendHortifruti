@@ -1,4 +1,4 @@
-# 🍎 Frontend System of Hortifruti Mikami  
+# 🍎 Frontend System of Hortifruti  
 ### ✅ Completed! 
 #### 📚 Project UNIP – PIM IV  
 
